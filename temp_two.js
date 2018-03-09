@@ -20,20 +20,21 @@ const argv = yargs
 	.alias('help', 'h')
 	.argv;
 
+var lat = 16.5618907
+var lng = 42.9635889
+
 geocode.geocodeAddress(argv.a, (errorMessage, results) => {
 	if (errorMessage) {
 		console.log(errorMessage)
 	} else {
-		console.log(results.address);
-		fetchForecast.fetchForecast(results.latitude, results.longitude, (errorMessage, forecastResults) => {
-			if (errorMessage) {
-				console.log(errorMessage)
-			} else {
-				// console.log(JSON.stringify(forecastResults, undefined, 2));
-				console.log(`It is currently ${forecastResults.temperature} degrees ferenheit`)
-				console.log(`It feels like ${forecastResults.apparentTemperature} degrees ferenheit`)
-			}
-		});
+		console.log(JSON.stringify(results, undefined, 2));
 	}
 });
 
+fetchForecast.fetchForecast(lat, lng, (errorMessage, forecastResults) => {
+	if (errorMessage) {
+		console.log(errorMessage)
+	} else {
+		console.log(JSON.stringify(results, undefined, 2));
+	}
+});
